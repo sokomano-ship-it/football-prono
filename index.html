@@ -1,71 +1,40 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pronostics Coupe du Monde FIFA</title>
-
-    <link rel="stylesheet" href="style.css">
-
-    <script src="config.js"></script>
-    <script src="script.js" defer></script>
-    <script src="knockout.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pronostics Coupe du Monde FIFA</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="knockout.js" defer></script>
 </head>
 
 <body>
+  <div class="container">
+    <header class="hero">
+      <h1>🏆 Pronostics Coupe du Monde FIFA</h1>
+      <p>Phase finale — pronostics tour par tour</p>
+    </header>
 
-    <div class="container">
+    <section class="card">
+      <h2>🏅 Classement général</h2>
+      <p class="rules">
+        Total = points phase 1 acquis + points phase finale.
+      </p>
+      <div id="overall-ranking">Chargement...</div>
+    </section>
 
-        <header class="hero">
-            <h1>🏆 Pronostics Coupe du Monde FIFA</h1>
-            <p>Phase de groupes + phase finale</p>
-        </header>
+    <section class="card highlight-card">
+      <h2>🔥 Phase finale</h2>
+      <p class="rules">
+        Barème :
+        <strong>+1 bon qualifié</strong>,
+        <strong>+1 bonne issue 1/N/2 après 90 minutes</strong>,
+        <strong>+1 score exact après 90 minutes</strong>.
+      </p>
 
-        <div class="card highlight-card">
-            <h2>🔥 Phase finale</h2>
-
-            <p class="rules">
-                Barème :
-                <strong>+1 bon qualifié</strong>,
-                <strong>+1 bonne issue 1/N/2 après 90 minutes</strong>,
-                <strong>+1 score exact</strong>.
-            </p>
-
-            <div id="knockout-ranking">
-                Chargement du classement phase finale...
-            </div>
-
-            <div id="knockout-table">
-                Chargement des matchs et pronostics phase finale...
-            </div>
-        </div>
-
-        <div class="card">
-            <h2>Classement général</h2>
-
-            <table id="ranking">
-                <thead>
-                    <tr>
-                        <th>Position</th>
-                        <th>Joueur</th>
-                        <th>Points</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
-
-        <div class="card">
-            <h2>Résultats API / Phase de groupes</h2>
-
-            <div id="api-status">
-                Chargement...
-            </div>
-        </div>
-
-    </div>
-
+      <div id="knockout-ranking">Chargement du classement phase finale...</div>
+      <div id="knockout-table">Chargement des matchs...</div>
+    </section>
+  </div>
 </body>
-
 </html>
