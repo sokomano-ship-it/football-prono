@@ -7,10 +7,20 @@
   ],
   "predictions": {
     "537417": {
+      "Valentin": {
+        "homeScore": 1,
+        "awayScore": 2,
+        "qualified": "Canada"
+      },
       "Anne-Sophie": {
         "homeScore": 2,
         "awayScore": 1,
         "qualified": "South Africa"
+      },
+      "Timothée": {
+        "homeScore": 1,
+        "awayScore": 2,
+        "qualified": "Canada"
       },
       "Jonathan": {
         "homeScore": 1,
@@ -19,8 +29,18 @@
       }
     },
     "537423": {
+      "Valentin": {
+        "homeScore": 2,
+        "awayScore": 2,
+        "qualified": "Japan"
+      },
       "Anne-Sophie": {
         "homeScore": 2,
+        "awayScore": 1,
+        "qualified": "Brazil"
+      },
+      "Timothée": {
+        "homeScore": 3,
         "awayScore": 1,
         "qualified": "Brazil"
       },
@@ -31,9 +51,19 @@
       }
     },
     "537415": {
+      "Valentin": {
+        "homeScore": 3,
+        "awayScore": 0,
+        "qualified": "Germany"
+      },
       "Anne-Sophie": {
         "homeScore": 2,
         "awayScore": 1,
+        "qualified": "Germany"
+      },
+      "Timothée": {
+        "homeScore": 3,
+        "awayScore": 0,
         "qualified": "Germany"
       },
       "Jonathan": {
@@ -43,10 +73,20 @@
       }
     },
     "537418": {
+      "Valentin": {
+        "homeScore": 2,
+        "awayScore": 2,
+        "qualified": "Netherlands"
+      },
       "Anne-Sophie": {
         "homeScore": 2,
         "awayScore": 1,
         "qualified": "Netherlands"
+      },
+      "Timothée": {
+        "homeScore": 2,
+        "awayScore": 3,
+        "qualified": "Morocco"
       },
       "Jonathan": {
         "homeScore": 2,
@@ -55,9 +95,19 @@
       }
     },
     "537424": {
+      "Valentin": {
+        "homeScore": 1,
+        "awayScore": 2,
+        "qualified": "Norway"
+      },
       "Anne-Sophie": {
         "homeScore": 0,
         "awayScore": 2,
+        "qualified": "Norway"
+      },
+      "Timothée": {
+        "homeScore": 0,
+        "awayScore": 1,
         "qualified": "Norway"
       },
       "Jonathan": {
@@ -67,8 +117,18 @@
       }
     },
     "537416": {
+      "Valentin": {
+        "homeScore": 4,
+        "awayScore": 0,
+        "qualified": "France"
+      },
       "Anne-Sophie": {
         "homeScore": 3,
+        "awayScore": 1,
+        "qualified": "France"
+      },
+      "Timothée": {
+        "homeScore": 4,
         "awayScore": 1,
         "qualified": "France"
       },
@@ -79,9 +139,19 @@
       }
     },
     "537425": {
+      "Valentin": {
+        "homeScore": 2,
+        "awayScore": 0,
+        "qualified": "Mexico"
+      },
       "Anne-Sophie": {
         "homeScore": 2,
         "awayScore": 0,
+        "qualified": "Mexico"
+      },
+      "Timothée": {
+        "homeScore": 3,
+        "awayScore": 2,
         "qualified": "Mexico"
       },
       "Jonathan": {
@@ -91,8 +161,18 @@
       }
     },
     "537426": {
+      "Valentin": {
+        "homeScore": 3,
+        "awayScore": 0,
+        "qualified": "England"
+      },
       "Anne-Sophie": {
         "homeScore": 3,
+        "awayScore": 1,
+        "qualified": "England"
+      },
+      "Timothée": {
+        "homeScore": 4,
         "awayScore": 1,
         "qualified": "England"
       },
@@ -103,10 +183,20 @@
       }
     },
     "537422": {
+      "Valentin": {
+        "homeScore": 1,
+        "awayScore": 2,
+        "qualified": "Senegal"
+      },
       "Anne-Sophie": {
         "homeScore": 2,
         "awayScore": 1,
         "qualified": "Belgium"
+      },
+      "Timothée": {
+        "homeScore": 2,
+        "awayScore": 2,
+        "qualified": "Senegal"
       },
       "Jonathan": {
         "homeScore": 1,
@@ -115,7 +205,17 @@
       }
     },
     "537421": {
+      "Valentin": {
+        "homeScore": 2,
+        "awayScore": 0,
+        "qualified": "United States"
+      },
       "Anne-Sophie": {
+        "homeScore": 1,
+        "awayScore": 1,
+        "qualified": "United States"
+      },
+      "Timothée": {
         "homeScore": 1,
         "awayScore": 1,
         "qualified": "United States"
@@ -127,7 +227,17 @@
       }
     },
     "537420": {
+      "Valentin": {
+        "homeScore": 4,
+        "awayScore": 1,
+        "qualified": "Spain"
+      },
       "Anne-Sophie": {
+        "homeScore": 3,
+        "awayScore": 0,
+        "qualified": "Spain"
+      },
+      "Timothée": {
         "homeScore": 3,
         "awayScore": 0,
         "qualified": "Spain"
@@ -139,9 +249,19 @@
       }
     },
     "537419": {
+      "Valentin": {
+        "homeScore": 2,
+        "awayScore": 2,
+        "qualified": "Croatia"
+      },
       "Anne-Sophie": {
         "homeScore": 2,
         "awayScore": 1,
+        "qualified": "Portugal"
+      },
+      "Timothée": {
+        "homeScore": 4,
+        "awayScore": 3,
         "qualified": "Portugal"
       },
       "Jonathan": {
@@ -151,9 +271,19 @@
       }
     },
     "537429": {
+      "Valentin": {
+        "homeScore": 2,
+        "awayScore": 0,
+        "qualified": "Switzerland"
+      },
       "Anne-Sophie": {
         "homeScore": 3,
         "awayScore": 1,
+        "qualified": "Switzerland"
+      },
+      "Timothée": {
+        "homeScore": 2,
+        "awayScore": 2,
         "qualified": "Switzerland"
       },
       "Jonathan": {
@@ -163,7 +293,17 @@
       }
     },
     "537428": {
+      "Valentin": {
+        "homeScore": 0,
+        "awayScore": 0,
+        "qualified": "Australia"
+      },
       "Anne-Sophie": {
+        "homeScore": 1,
+        "awayScore": 2,
+        "qualified": "Egypt"
+      },
+      "Timothée": {
         "homeScore": 1,
         "awayScore": 2,
         "qualified": "Egypt"
@@ -175,8 +315,18 @@
       }
     },
     "537427": {
+      "Valentin": {
+        "homeScore": 5,
+        "awayScore": 0,
+        "qualified": "Argentina"
+      },
       "Anne-Sophie": {
         "homeScore": 4,
+        "awayScore": 0,
+        "qualified": "Argentina"
+      },
+      "Timothée": {
+        "homeScore": 5,
         "awayScore": 0,
         "qualified": "Argentina"
       },
@@ -187,10 +337,20 @@
       }
     },
     "537430": {
+      "Valentin": {
+        "homeScore": 0,
+        "awayScore": 0,
+        "qualified": "Colombia"
+      },
       "Anne-Sophie": {
         "homeScore": 3,
         "awayScore": 1,
         "qualified": "Colombia"
+      },
+      "Timothée": {
+        "homeScore": 0,
+        "awayScore": 3,
+        "qualified": "Ghana"
       },
       "Jonathan": {
         "homeScore": 3,
