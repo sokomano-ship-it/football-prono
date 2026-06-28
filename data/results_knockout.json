@@ -1,0 +1,13 @@
+{
+  "matches": [
+    {
+      "id": "R16-01",
+      "round": "R16",
+      "home": "Equipe A",
+      "away": "Equipe B",
+      "homeScore": null,
+      "awayScore": null,
+      "qualified": null
+    }
+  ]
+}

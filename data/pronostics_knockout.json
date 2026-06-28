@@ -1,0 +1,17 @@
+{
+  "players": ["Valentin", "Timothee", "Jonathan", "AnneSo"],
+  "matches": [
+    {
+      "id": "R16-01",
+      "round": "R16",
+      "home": "Equipe A",
+      "away": "Equipe B",
+      "predictions": {
+        "Jonathan": { "homeScore": 1, "awayScore": 1, "qualified": "Equipe A" },
+        "Valentin": { "homeScore": 2, "awayScore": 0, "qualified": "Equipe A" },
+        "Timothee": { "homeScore": 0, "awayScore": 1, "qualified": "Equipe B" },
+        "AnneSo": { "homeScore": 1, "awayScore": 0, "qualified": "Equipe A" }
+      }
+    }
+  ]
+}
