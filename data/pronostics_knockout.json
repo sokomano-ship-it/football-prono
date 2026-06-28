@@ -1,17 +1,11 @@
 {
   "players": ["Valentin", "Anne-Sophie", "Timothée", "Jonathan"],
-  "matches": [
-    {
-      "id": "R32-01",
-      "round": "R32",
-      "home": "Afrique du Sud",
-      "away": "Canada",
-      "predictions": {
-        "Valentin": { "homeScore": 1, "awayScore": 2, "qualified": "Canada" },
-        "Anne-Sophie": { "homeScore": 0, "awayScore": 2, "qualified": "Canada" },
-        "Timothée": { "homeScore": 1, "awayScore": 1, "qualified": "Canada" },
-        "Jonathan": { "homeScore": 1, "awayScore": 2, "qualified": "Canada" }
-      }
+  "predictions": {
+    "53452545": {
+      "Valentin": { "homeScore": 1, "awayScore": 2, "qualified": "Canada" },
+      "Anne-Sophie": { "homeScore": 0, "awayScore": 2, "qualified": "Canada" },
+      "Timothée": { "homeScore": 1, "awayScore": 1, "qualified": "Canada" },
+      "Jonathan": { "homeScore": 1, "awayScore": 2, "qualified": "Canada" }
     }
-  ]
+  }
 }

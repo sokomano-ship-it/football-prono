@@ -5,31 +5,88 @@ const basePoints = {
   "Jonathan": 52
 };
 
-const roundLabels = {
-  R32: "16e de finale",
-  R16: "8e de finale",
-  QF: "Quart de finale",
-  SF: "Demi-finale",
-  THIRD: "Match pour la 3e place",
+const stageLabels = {
+  LAST_32: "16e de finale",
+  LAST_16: "8e de finale",
+  QUARTER_FINALS: "Quart de finale",
+  SEMI_FINALS: "Demi-finale",
+  THIRD_PLACE: "Match pour la 3e place",
   FINAL: "Finale"
 };
 
-document.addEventListener("DOMContentLoaded", loadKnockout);
+const stageOrder = [
+  "LAST_32",
+  "LAST_16",
+  "QUARTER_FINALS",
+  "SEMI_FINALS",
+  "THIRD_PLACE",
+  "FINAL"
+];
 
-async function loadKnockout() {
-  const [pronosticsRes, resultsRes] = await Promise.all([
-    fetch("data/pronostics_knockout.json"),
-    fetch("data/results_knockout.json")
-  ]);
+document.addEventListener("DOMContentLoaded", init);
 
-  const pronostics = await pronosticsRes.json();
-  const results = await resultsRes.json();
+async function init() {
+  try {
+    const [pronostics, apiData] = await Promise.all([
+      loadPronostics(),
+      loadOfficialMatches()
+    ]);
 
-  const knockoutRanking = calculateKnockoutRanking(pronostics, results);
+    const matches = normalizeMatches(apiData.matches || []);
+    const knockoutMatches = matches.filter(match => stageOrder.includes(match.stage));
 
-  renderOverallRanking(knockoutRanking);
-  renderKnockoutRanking(knockoutRanking);
-  renderKnockoutTable(pronostics, results);
+    document.getElementById("api-status").innerHTML =
+      `✅ ${knockoutMatches.length} matchs de phase finale récupérés automatiquement`;
+
+    const ranking = calculateRanking(pronostics, knockoutMatches);
+
+    renderOverallRanking(ranking);
+    renderKnockoutRanking(ranking);
+    renderKnockoutTable(pronostics, knockoutMatches);
+  } catch (error) {
+    console.error(error);
+    document.getElementById("api-status").innerHTML =
+      `❌ Erreur : ${error.message}`;
+  }
+}
+
+async function loadPronostics() {
+  const res = await fetch("data/pronostics_knockout.json");
+  if (!res.ok) throw new Error("Impossible de charger data/pronostics_knockout.json");
+  return await res.json();
+}
+
+async function loadOfficialMatches() {
+  const res = await fetch(`/api?apiKey=${encodeURIComponent(API_KEY)}`);
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Erreur API Vercel : ${text}`);
+  }
+
+  return await res.json();
+}
+
+function normalizeMatches(matches) {
+  return matches.map(match => {
+    const homeTeam = match.homeTeam?.name || "À déterminer";
+    const awayTeam = match.awayTeam?.name || "À déterminer";
+
+    return {
+      id: String(match.id),
+      utcDate: match.utcDate,
+      status: match.status,
+      stage: match.stage,
+      homeTeam,
+      awayTeam,
+      homeScore: match.score?.fullTime?.home ?? null,
+      awayScore: match.score?.fullTime?.away ?? null,
+      winner:
+        match.score?.winner === "HOME_TEAM" ? homeTeam :
+        match.score?.winner === "AWAY_TEAM" ? awayTeam :
+        null
+    };
+  });
 }
 
 function getIssue(homeScore, awayScore) {
@@ -38,21 +95,21 @@ function getIssue(homeScore, awayScore) {
   return "N";
 }
 
-function calculateKnockoutPoints(prediction, result) {
-  if (!prediction || !result) return 0;
-  if (result.homeScore === null || result.awayScore === null) return 0;
+function calculatePoints(prediction, match) {
+  if (!prediction || !match) return 0;
+  if (match.homeScore === null || match.awayScore === null) return 0;
 
   let points = 0;
 
   const predictedIssue = getIssue(prediction.homeScore, prediction.awayScore);
-  const realIssue = getIssue(result.homeScore, result.awayScore);
+  const realIssue = getIssue(match.homeScore, match.awayScore);
 
-  if (prediction.qualified === result.qualified) points += 1;
+  if (prediction.qualified === match.winner) points += 1;
   if (predictedIssue === realIssue) points += 1;
 
   if (
-    Number(prediction.homeScore) === Number(result.homeScore) &&
-    Number(prediction.awayScore) === Number(result.awayScore)
+    Number(prediction.homeScore) === Number(match.homeScore) &&
+    Number(prediction.awayScore) === Number(match.awayScore)
   ) {
     points += 1;
   }
@@ -60,35 +117,28 @@ function calculateKnockoutPoints(prediction, result) {
   return points;
 }
 
-function findResult(match, results) {
-  return results.matches.find(r => r.id === match.id);
-}
-
-function calculateKnockoutRanking(pronostics, results) {
+function calculateRanking(pronostics, matches) {
   return pronostics.players.map(player => {
-    let points = 0;
+    let knockoutPoints = 0;
 
-    pronostics.matches.forEach(match => {
-      const result = findResult(match, results);
-      const prediction = match.predictions[player];
-      points += calculateKnockoutPoints(prediction, result);
+    matches.forEach(match => {
+      const prediction = pronostics.predictions?.[match.id]?.[player];
+      knockoutPoints += calculatePoints(prediction, match);
     });
 
     return {
       player,
-      knockoutPoints: points,
       basePoints: basePoints[player] || 0,
-      totalPoints: (basePoints[player] || 0) + points
+      knockoutPoints,
+      totalPoints: (basePoints[player] || 0) + knockoutPoints
     };
   });
 }
 
 function renderOverallRanking(ranking) {
-  const container = document.getElementById("overall-ranking");
-
   const sorted = [...ranking].sort((a, b) => b.totalPoints - a.totalPoints);
 
-  container.innerHTML = `
+  document.getElementById("overall-ranking").innerHTML = `
     <table>
       <thead>
         <tr>
@@ -100,9 +150,9 @@ function renderOverallRanking(ranking) {
         </tr>
       </thead>
       <tbody>
-        ${sorted.map((row, index) => `
+        ${sorted.map((row, i) => `
           <tr>
-            <td>${index + 1}</td>
+            <td>${i + 1}</td>
             <td><strong>${row.player}</strong></td>
             <td>${row.basePoints}</td>
             <td>${row.knockoutPoints}</td>
@@ -115,11 +165,9 @@ function renderOverallRanking(ranking) {
 }
 
 function renderKnockoutRanking(ranking) {
-  const container = document.getElementById("knockout-ranking");
-
   const sorted = [...ranking].sort((a, b) => b.knockoutPoints - a.knockoutPoints);
 
-  container.innerHTML = `
+  document.getElementById("knockout-ranking").innerHTML = `
     <h2>Classement phase finale</h2>
     <table>
       <thead>
@@ -130,9 +178,9 @@ function renderKnockoutRanking(ranking) {
         </tr>
       </thead>
       <tbody>
-        ${sorted.map((row, index) => `
+        ${sorted.map((row, i) => `
           <tr>
-            <td>${index + 1}</td>
+            <td>${i + 1}</td>
             <td><strong>${row.player}</strong></td>
             <td>${row.knockoutPoints}</td>
           </tr>
@@ -142,59 +190,66 @@ function renderKnockoutRanking(ranking) {
   `;
 }
 
-function renderKnockoutTable(pronostics, results) {
-  const container = document.getElementById("knockout-table");
+function renderKnockoutTable(pronostics, matches) {
   let html = "";
 
-  const rounds = [...new Set(pronostics.matches.map(m => m.round))];
+  stageOrder.forEach(stage => {
+    const stageMatches = matches.filter(match => match.stage === stage);
+    if (!stageMatches.length) return;
 
-  rounds.forEach(round => {
-    html += `<h2>${roundLabels[round] || round}</h2>`;
+    html += `<h2>${stageLabels[stage]}</h2>`;
 
     html += `
       <table>
         <thead>
           <tr>
             <th>Match</th>
+            <th>Date</th>
             <th>Résultat officiel</th>
-            ${pronostics.players.map(p => `<th>${p}</th>`).join("")}
+            ${pronostics.players.map(player => `<th>${player}</th>`).join("")}
           </tr>
         </thead>
         <tbody>
     `;
 
-    pronostics.matches
-      .filter(match => match.round === round)
-      .forEach(match => {
-        const result = findResult(match, results);
+    stageMatches.forEach(match => {
+      const date = match.utcDate
+        ? new Date(match.utcDate).toLocaleString("fr-FR")
+        : "-";
 
-        const official =
-          result && result.homeScore !== null
-            ? `${result.homeScore}-${result.awayScore}<br>Qualifié : <strong>${result.qualified}</strong>`
-            : `<span class="muted">À venir</span>`;
+      const official = match.homeScore !== null
+        ? `${match.homeScore}-${match.awayScore}<br>Qualifié : <strong>${match.winner || "-"}</strong>`
+        : `<span class="muted">À venir</span>`;
 
-        html += `
-          <tr>
-            <td><strong>${match.home}</strong><br>${match.away}</td>
-            <td>${official}</td>
-            ${pronostics.players.map(player => {
-              const pred = match.predictions[player];
+      html += `
+        <tr>
+          <td>
+            <strong>${match.homeTeam}</strong><br>
+            ${match.awayTeam}<br>
+            <span class="muted">ID : ${match.id}</span>
+          </td>
+          <td>${date}</td>
+          <td>${official}</td>
+          ${pronostics.players.map(player => {
+            const prediction = pronostics.predictions?.[match.id]?.[player];
 
-              if (!pred) return `<td class="muted">-</td>`;
+            if (!prediction) {
+              return `<td class="muted">Pas encore pronostiqué</td>`;
+            }
 
-              const pts = calculateKnockoutPoints(pred, result);
+            const pts = calculatePoints(prediction, match);
 
-              return `
-                <td>
-                  ${pred.homeScore}-${pred.awayScore}<br>
-                  Qualifié : <strong>${pred.qualified}</strong><br>
-                  <span class="points">${pts} pt${pts > 1 ? "s" : ""}</span>
-                </td>
-              `;
-            }).join("")}
-          </tr>
-        `;
-      });
+            return `
+              <td>
+                ${prediction.homeScore}-${prediction.awayScore}<br>
+                Qualifié : <strong>${prediction.qualified}</strong><br>
+                <span class="points">${pts} pt${pts > 1 ? "s" : ""}</span>
+              </td>
+            `;
+          }).join("")}
+        </tr>
+      `;
+    });
 
     html += `
         </tbody>
@@ -202,5 +257,5 @@ function renderKnockoutTable(pronostics, results) {
     `;
   });
 
-  container.innerHTML = html;
+  document.getElementById("knockout-table").innerHTML = html;
 }

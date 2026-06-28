@@ -4,27 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pronostics Coupe du Monde FIFA</title>
+
   <link rel="stylesheet" href="style.css">
+
+  <script src="config.js"></script>
   <script src="knockout.js" defer></script>
 </head>
 
 <body>
   <div class="container">
+
     <header class="hero">
       <h1>🏆 Pronostics Coupe du Monde FIFA</h1>
-      <p>Phase finale — pronostics tour par tour</p>
+      <p>Phase finale — résultats automatiques + pronostics tour par tour</p>
     </header>
 
     <section class="card">
       <h2>🏅 Classement général</h2>
-      <p class="rules">
-        Total = points phase 1 acquis + points phase finale.
-      </p>
+      <p class="rules">Total = points phase 1 acquis + points phase finale.</p>
       <div id="overall-ranking">Chargement...</div>
     </section>
 
     <section class="card highlight-card">
       <h2>🔥 Phase finale</h2>
+
       <p class="rules">
         Barème :
         <strong>+1 bon qualifié</strong>,
@@ -32,9 +35,11 @@
         <strong>+1 score exact après 90 minutes</strong>.
       </p>
 
+      <div id="api-status">Chargement des matchs officiels...</div>
       <div id="knockout-ranking">Chargement du classement phase finale...</div>
       <div id="knockout-table">Chargement des matchs...</div>
     </section>
+
   </div>
 </body>
 </html>
