@@ -13,9 +13,9 @@
         "qualified": "Canada"
       },
       "Anne-Sophie": {
-        "homeScore": 2,
-        "awayScore": 1,
-        "qualified": "South Africa"
+        "homeScore": 1,
+        "awayScore": 2,
+        "qualified": "Canada"
       },
       "Timothée": {
         "homeScore": 1,
@@ -31,8 +31,8 @@
     "537423": {
       "Valentin": {
         "homeScore": 2,
-        "awayScore": 2,
-        "qualified": "Japan"
+        "awayScore": 1,
+        "qualified": "Brazil"
       },
       "Anne-Sophie": {
         "homeScore": 2,
@@ -58,7 +58,7 @@
       },
       "Anne-Sophie": {
         "homeScore": 2,
-        "awayScore": 1,
+        "awayScore": 0,
         "qualified": "Germany"
       },
       "Timothée": {
