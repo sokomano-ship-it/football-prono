@@ -23,6 +23,41 @@ const stageOrder = [
   "FINAL"
 ];
 
+const countryCodes = {
+  "South Africa": "za",
+  "Canada": "ca",
+  "Brazil": "br",
+  "Japan": "jp",
+  "Germany": "de",
+  "Paraguay": "py",
+  "Netherlands": "nl",
+  "Morocco": "ma",
+  "Ivory Coast": "ci",
+  "Norway": "no",
+  "France": "fr",
+  "Sweden": "se",
+  "Mexico": "mx",
+  "Ecuador": "ec",
+  "England": "gb-eng",
+  "Congo DR": "cd",
+  "Belgium": "be",
+  "Senegal": "sn",
+  "United States": "us",
+  "Bosnia-Herzegovina": "ba",
+  "Spain": "es",
+  "Austria": "at",
+  "Portugal": "pt",
+  "Croatia": "hr",
+  "Switzerland": "ch",
+  "Algeria": "dz",
+  "Australia": "au",
+  "Egypt": "eg",
+  "Argentina": "ar",
+  "Cape Verde Islands": "cv",
+  "Colombia": "co",
+  "Ghana": "gh"
+};
+
 document.addEventListener("DOMContentLoaded", init);
 
 async function init() {
@@ -42,6 +77,7 @@ async function init() {
 
     renderOverallRanking(ranking);
     renderKnockoutRanking(ranking);
+    renderPointsChart(pronostics, knockoutMatches);
     renderKnockoutTable(pronostics, knockoutMatches);
   } catch (error) {
     console.error(error);
@@ -86,7 +122,19 @@ function normalizeMatches(matches) {
         match.score?.winner === "AWAY_TEAM" ? awayTeam :
         null
     };
-  });
+  }).sort((a, b) => new Date(a.utcDate) - new Date(b.utcDate));
+}
+
+function flagHtml(teamName) {
+  const code = countryCodes[teamName];
+
+  if (!code) return "";
+
+  return `<img class="flag" src="https://flagcdn.com/24x18/${code}.png" alt="${teamName}">`;
+}
+
+function teamHtml(teamName) {
+  return `${flagHtml(teamName)} <span>${teamName}</span>`;
 }
 
 function getIssue(homeScore, awayScore) {
@@ -190,6 +238,89 @@ function renderKnockoutRanking(ranking) {
   `;
 }
 
+function buildPointsEvolution(pronostics, matches) {
+  const completedMatches = matches
+    .filter(match => match.homeScore !== null && match.awayScore !== null)
+    .sort((a, b) => new Date(a.utcDate) - new Date(b.utcDate));
+
+  const totals = {};
+  pronostics.players.forEach(player => {
+    totals[player] = basePoints[player] || 0;
+  });
+
+  const evolution = [
+    {
+      label: "Début phase finale",
+      ...totals
+    }
+  ];
+
+  completedMatches.forEach(match => {
+    pronostics.players.forEach(player => {
+      const prediction = pronostics.predictions?.[match.id]?.[player];
+      totals[player] += calculatePoints(prediction, match);
+    });
+
+    evolution.push({
+      label: `${match.homeTeam} - ${match.awayTeam}`,
+      ...totals
+    });
+  });
+
+  return evolution;
+}
+
+let pointsChart = null;
+
+function renderPointsChart(pronostics, matches) {
+  const canvas = document.getElementById("points-chart");
+  if (!canvas || typeof Chart === "undefined") return;
+
+  const evolution = buildPointsEvolution(pronostics, matches);
+
+  if (pointsChart) pointsChart.destroy();
+
+  pointsChart = new Chart(canvas, {
+    type: "line",
+    data: {
+      labels: evolution.map(row => row.label),
+      datasets: pronostics.players.map(player => ({
+        label: player,
+        data: evolution.map(row => row[player]),
+        tension: 0.25
+      }))
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          labels: {
+            color: "#f5f7fb"
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: "#dbe6f3"
+          },
+          grid: {
+            color: "rgba(255,255,255,0.08)"
+          }
+        },
+        y: {
+          ticks: {
+            color: "#dbe6f3"
+          },
+          grid: {
+            color: "rgba(255,255,255,0.08)"
+          }
+        }
+      }
+    }
+  });
+}
+
 function renderKnockoutTable(pronostics, matches) {
   let html = "";
 
@@ -218,14 +349,14 @@ function renderKnockoutTable(pronostics, matches) {
         : "-";
 
       const official = match.homeScore !== null
-        ? `${match.homeScore}-${match.awayScore}<br>Qualifié : <strong>${match.winner || "-"}</strong>`
+        ? `${match.homeScore}-${match.awayScore}<br>Qualifié : <strong>${teamHtml(match.winner || "-")}</strong>`
         : `<span class="muted">À venir</span>`;
 
       html += `
         <tr>
           <td>
-            <strong>${match.homeTeam}</strong><br>
-            ${match.awayTeam}<br>
+            <strong>${teamHtml(match.homeTeam)}</strong><br>
+            ${teamHtml(match.awayTeam)}<br>
             <span class="muted">ID : ${match.id}</span>
           </td>
           <td>${date}</td>
@@ -242,7 +373,7 @@ function renderKnockoutTable(pronostics, matches) {
             return `
               <td>
                 ${prediction.homeScore}-${prediction.awayScore}<br>
-                Qualifié : <strong>${prediction.qualified}</strong><br>
+                Qualifié : <strong>${teamHtml(prediction.qualified)}</strong><br>
                 <span class="points">${pts} pt${pts > 1 ? "s" : ""}</span>
               </td>
             `;

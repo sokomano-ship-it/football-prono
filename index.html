@@ -7,6 +7,7 @@
 
   <link rel="stylesheet" href="style.css">
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="config.js"></script>
   <script src="knockout.js" defer></script>
 </head>
@@ -23,6 +24,11 @@
       <h2>🏅 Classement général</h2>
       <p class="rules">Total = points phase 1 acquis + points phase finale.</p>
       <div id="overall-ranking">Chargement...</div>
+    </section>
+
+    <section class="card">
+      <h2>📈 Évolution des points</h2>
+      <canvas id="points-chart"></canvas>
     </section>
 
     <section class="card highlight-card">

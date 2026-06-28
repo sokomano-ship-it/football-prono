@@ -108,9 +108,23 @@ tbody tr:hover {
   color: #9fb0c3;
 }
 
+.flag {
+  width: 24px;
+  height: 18px;
+  object-fit: cover;
+  border-radius: 3px;
+  vertical-align: middle;
+  margin-right: 6px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.2);
+}
+
 #api-status {
   margin-bottom: 20px;
   color: #dbe6f3;
+}
+
+#points-chart {
+  max-height: 420px;
 }
 
 @media (max-width: 760px) {
