@@ -118,6 +118,18 @@ function normalizeMatches(matches) {
       match.score?.fullTime?.away ??
       null;
 
+    const fullHome =
+      match.score?.fullTime?.home ?? null;
+
+    const fullAway =
+      match.score?.fullTime?.away ?? null;
+
+    const penaltiesHome =
+      match.score?.penalties?.home ?? null;
+
+    const penaltiesAway =
+      match.score?.penalties?.away ?? null;
+
     return {
       id: String(match.id),
       utcDate: match.utcDate,
@@ -129,6 +141,12 @@ function normalizeMatches(matches) {
       // Score utilisé pour les points : score après 90 minutes
       homeScore: regularHome,
       awayScore: regularAway,
+
+      // Détails indicatifs
+      fullHome,
+      fullAway,
+      penaltiesHome,
+      penaltiesAway,
 
       // Vainqueur/qualifié réel, même après TAB/prolongations
       winner:
@@ -149,6 +167,42 @@ function flagHtml(teamName) {
 
 function teamHtml(teamName) {
   return `${flagHtml(teamName)} <span>${teamName}</span>`;
+}
+
+function formatOfficialResult(match) {
+  if (match.homeScore === null || match.awayScore === null) {
+    return `<span class="muted">À venir</span>`;
+  }
+
+  let html = `
+    <strong>90 min :</strong> ${match.homeScore}-${match.awayScore}<br>
+  `;
+
+  const hasExtraTime =
+    match.fullHome !== null &&
+    match.fullAway !== null &&
+    (
+      Number(match.fullHome) !== Number(match.homeScore) ||
+      Number(match.fullAway) !== Number(match.awayScore)
+    );
+
+  if (hasExtraTime) {
+    html += `
+      <span class="muted">Après prolong. : ${match.fullHome}-${match.fullAway}</span><br>
+    `;
+  }
+
+  if (match.penaltiesHome !== null && match.penaltiesAway !== null) {
+    html += `
+      <span class="muted">TAB : ${match.penaltiesHome}-${match.penaltiesAway}</span><br>
+    `;
+  }
+
+  html += `
+    Qualifié : <strong>${teamHtml(match.winner || "-")}</strong>
+  `;
+
+  return html;
 }
 
 function getIssue(homeScore, awayScore) {
@@ -316,7 +370,7 @@ function renderPointsChart(pronostics, matches) {
       scales: {
         x: {
           ticks: {
-            color: "#dbe6f3"
+            display: false
           },
           grid: {
             color: "rgba(255,255,255,0.08)"
@@ -362,9 +416,7 @@ function renderKnockoutTable(pronostics, matches) {
         ? new Date(match.utcDate).toLocaleString("fr-FR")
         : "-";
 
-      const official = match.homeScore !== null
-        ? `${match.homeScore}-${match.awayScore}<br>Qualifié : <strong>${teamHtml(match.winner || "-")}</strong>`
-        : `<span class="muted">À venir</span>`;
+      const official = formatOfficialResult(match);
 
       html += `
         <tr>
