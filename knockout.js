@@ -108,6 +108,16 @@ function normalizeMatches(matches) {
     const homeTeam = match.homeTeam?.name || "À déterminer";
     const awayTeam = match.awayTeam?.name || "À déterminer";
 
+    const regularHome =
+      match.score?.regularTime?.home ??
+      match.score?.fullTime?.home ??
+      null;
+
+    const regularAway =
+      match.score?.regularTime?.away ??
+      match.score?.fullTime?.away ??
+      null;
+
     return {
       id: String(match.id),
       utcDate: match.utcDate,
@@ -115,8 +125,12 @@ function normalizeMatches(matches) {
       stage: match.stage,
       homeTeam,
       awayTeam,
-      homeScore: match.score?.fullTime?.home ?? null,
-      awayScore: match.score?.fullTime?.away ?? null,
+
+      // Score utilisé pour les points : score après 90 minutes
+      homeScore: regularHome,
+      awayScore: regularAway,
+
+      // Vainqueur/qualifié réel, même après TAB/prolongations
       winner:
         match.score?.winner === "HOME_TEAM" ? homeTeam :
         match.score?.winner === "AWAY_TEAM" ? awayTeam :
