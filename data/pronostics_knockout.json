@@ -357,6 +357,182 @@
         "awayScore": 1,
         "qualified": "Colombia"
       }
+    },
+    "537376": {
+      "Valentin": {
+        "homeScore": 0,
+        "awayScore": 1,
+        "qualified": "Morocco"
+      },
+      "Anne-Sophie": {
+        "homeScore": 0,
+        "awayScore": 2,
+        "qualified": "Morocco"
+      },
+      "Timothée": {
+        "homeScore": 0,
+        "awayScore": 2,
+        "qualified": "Morocco"
+      },
+      "Jonathan": {
+        "homeScore": 0,
+        "awayScore": 2,
+        "qualified": "Morocco"
+      }
+    },
+    "537375": {
+      "Valentin": {
+        "homeScore": 0,
+        "awayScore": 5,
+        "qualified": "France"
+      },
+      "Anne-Sophie": {
+        "homeScore": 0,
+        "awayScore": 2,
+        "qualified": "France"
+      },
+      "Timothée": {
+        "homeScore": 1,
+        "awayScore": 4,
+        "qualified": "France"
+      },
+      "Jonathan": {
+        "homeScore": 0,
+        "awayScore": 2,
+        "qualified": "France"
+      }
+    },
+    "537377": {
+      "Valentin": {
+        "homeScore": 2,
+        "awayScore": 3,
+        "qualified": "Norway"
+      },
+      "Anne-Sophie": {
+        "homeScore": 2,
+        "awayScore": 1,
+        "qualified": "Brazil"
+      },
+      "Timothée": {
+        "homeScore": 3,
+        "awayScore": 1,
+        "qualified": "Brazil"
+      },
+      "Jonathan": {
+        "homeScore": 2,
+        "awayScore": 1,
+        "qualified": "Brazil"
+      }
+    },
+    "537378": {
+      "Valentin": {
+        "homeScore": 1,
+        "awayScore": 0,
+        "qualified": "Mexico"
+      },
+      "Anne-Sophie": {
+        "homeScore": 1,
+        "awayScore": 2,
+        "qualified": "England"
+      },
+      "Timothée": {
+        "homeScore": 0,
+        "awayScore": 3,
+        "qualified": "England"
+      },
+      "Jonathan": {
+        "homeScore": 2,
+        "awayScore": 1,
+        "qualified": "Mexico"
+      }
+    },
+    "537379": {
+      "Valentin": {
+        "homeScore": 2,
+        "awayScore": 3,
+        "qualified": "Spain"
+      },
+      "Anne-Sophie": {
+        "homeScore": 1,
+        "awayScore": 2,
+        "qualified": "Spain"
+      },
+      "Timothée": {
+        "homeScore": 2,
+        "awayScore": 2,
+        "qualified": "Spain"
+      },
+      "Jonathan": {
+        "homeScore": 1,
+        "awayScore": 2,
+        "qualified": "Spain"
+      }
+    },
+    "537380": {
+      "Valentin": {
+        "homeScore": 2,
+        "awayScore": 1,
+        "qualified": "United States"
+      },
+      "Anne-Sophie": {
+        "homeScore": 1,
+        "awayScore": 2,
+        "qualified": "Belgium"
+      },
+      "Timothée": {
+        "homeScore": 0,
+        "awayScore": 1,
+        "qualified": "Belgium"
+      },
+      "Jonathan": {
+        "homeScore": 2,
+        "awayScore": 1,
+        "qualified": "United States"
+      }
+    },
+    "537381": {
+      "Valentin": {
+        "homeScore": 4,
+        "awayScore": 1,
+        "qualified": "Argentina"
+      },
+      "Anne-Sophie": {
+        "homeScore": 2,
+        "awayScore": 1,
+        "qualified": "Argentina"
+      },
+      "Timothée": {
+        "homeScore": 3,
+        "awayScore": 0,
+        "qualified": "Argentina"
+      },
+      "Jonathan": {
+        "homeScore": 2,
+        "awayScore": 1,
+        "qualified": "Argentina"
+      }
+    },
+    "537382": {
+      "Valentin": {
+        "homeScore": 1,
+        "awayScore": 0,
+        "qualified": "Switzerland"
+      },
+      "Anne-Sophie": {
+        "homeScore": 1,
+        "awayScore": 2,
+        "qualified": "Colombia"
+      },
+      "Timothée": {
+        "homeScore": 1,
+        "awayScore": 1,
+        "qualified": "Switzerland"
+      },
+      "Jonathan": {
+        "homeScore": 0,
+        "awayScore": 2,
+        "qualified": "Colombia"
+      }
     }
   }
 }
