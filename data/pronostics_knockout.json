@@ -617,8 +617,11 @@
     "qualified": "Argentina"
   },
   "Jonathan": {
-    "homeScore": 2,
-    "awayScore": 1,
-    "qualified": "Argentina"
+    "homeScore": 1,
+    "awayScore": 2,
+    "qualified": "Switzerland"
   }
 }
+ }
+}
+
