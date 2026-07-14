@@ -621,6 +621,52 @@
         "awayScore": 1,
         "qualified": "Switzerland"
       }
-    }
+   }
+},
+
+"537387": {
+  "Valentin": {
+    "homeScore": 2,
+    "awayScore": 1,
+    "qualified": "France"
+  },
+  "Anne-Sophie": {
+    "homeScore": 2,
+    "awayScore": 1,
+    "qualified": "France"
+  },
+  "Timothée": {
+    "homeScore": 4,
+    "awayScore": 2,
+    "qualified": "France"
+  },
+  "Jonathan": {
+    "homeScore": 3,
+    "awayScore": 1,
+    "qualified": "France"
   }
+},
+
+"537388": {
+  "Valentin": {
+    "homeScore": 1,
+    "awayScore": 1,
+    "qualified": "England"
+  },
+  "Anne-Sophie": {
+    "homeScore": 1,
+    "awayScore": 2,
+    "qualified": "Argentina"
+  },
+  "Timothée": {
+    "homeScore": 2,
+    "awayScore": 2,
+    "qualified": "England"
+  },
+  "Jonathan": {
+    "homeScore": 2,
+    "awayScore": 3,
+    "qualified": "Argentina"
+  }
+}
 }
